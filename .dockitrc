@@ -1,0 +1,2 @@
+default_args: -v /var/run/docker.sock:/var/run/docker.sock --link=etcd:etcd -v /Development/bundler_volume:/var/bundler
+dev_mount: /var/dev
