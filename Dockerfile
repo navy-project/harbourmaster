@@ -1,4 +1,4 @@
-FROM ruby
+FROM ruby:2.1
 
 RUN gem install thor
 RUN gem install etcd
@@ -18,4 +18,4 @@ RUN gem install navyrb
 ADD . /var/dev/
 RUN bundle install
 
-CMD bundle exec harbourmaster
+CMD [ "bundle", "exec", "bin/harbourmaster" ]
