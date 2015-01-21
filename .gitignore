@@ -16,4 +16,3 @@ mkmf.log
 *.swo
 errors.err
 .cadre
-bin/*
