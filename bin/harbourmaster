@@ -17,20 +17,20 @@ class Harbourmaster::Daemon
   end
 
   def watch(key)
+    logger = Navy::Logger.new(:channel => "harbourmaster")
     init = etcd.get('/')
     last_index = init.etcd_index
     @threads << Thread.new do
       while true do
         begin
-          puts "Watching: #{ENV['ETCD_PORT_4001_TCP_ADDR']} #{key}"
+          logger.debug "Watching: #{ENV['ETCD_PORT_4001_TCP_ADDR']} #{key}"
           request = etcd.watch(key, :waitIndex => last_index+1,
                                :recursive => true)
 
           last_index = request.node.modifiedIndex
           Process.fork do
-            logger = Navy::Logger.new
             logger.threaded!
-            logger.info "GOT: #{request.node.key} (#{request.action})"
+            logger.trace "GOT: #{request.node.key} (#{request.action})"
             begin
               router.route(request, :logger => logger)
             rescue => e

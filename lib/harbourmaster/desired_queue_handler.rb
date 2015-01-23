@@ -5,8 +5,8 @@ class Harbourmaster::DesiredQueueHandler
     @etcd = params[:etcd]
     consume_message(params, request) do |message|
       name = message["name"]
-      logger = params[:logger] || Navy::Logger.new
-      logger.info "#{message["request"]}: #{name}"
+      logger = params[:logger] || Navy::Logger.new(:channel => "harbourmaster")
+      logger.trace "#{message["request"]}: #{name}"
       case message["request"]
       when "create"
         desired = message["desired"]

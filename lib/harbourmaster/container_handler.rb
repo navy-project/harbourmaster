@@ -12,7 +12,7 @@ class Harbourmaster::ContainerHandler
 
   def resolve_desired(params, node)
     @params = params
-    @logger = params[:logger] || Navy::Logger.new
+    @logger = params[:logger] || Navy::Logger.new(:channel => "harbourmaster")
     container = case params["type"]
     when "desired"
       build_container_from_node(node)

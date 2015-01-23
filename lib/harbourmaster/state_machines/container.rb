@@ -17,7 +17,7 @@ module Harbourmaster::StateMachines
     def initialize(container, etcd, options={})
       @container=container
       @etcd=etcd
-      @logger = options[:logger] || Navy::Logger.new
+      @logger = options[:logger] || Navy::Logger.new(:channel => "harbourmaster")
       determine_states
     end
 
